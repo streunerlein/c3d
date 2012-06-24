@@ -30,7 +30,8 @@ c3d.Scene = function(opts) {
 		scene: [
 			[c3d.cssVendorPrefix, "perspective: ", this.perspective, ";"].join(""),
 			[c3d.cssVendorPrefix, "transform-style: preserve-3d;"].join(""),
-			"position: absolute;"
+			"position: absolute;",
+			"background-color: transparent;"
 		].join(""),
 
 		camera: [
@@ -243,26 +244,18 @@ c3d.Scene.prototype = {
 	},
 
 	flatShading: function() {
-		var shownFaceIndex = this.activeFace;
 		var faces = this.geometry.faces;
 		var camera = this.camera;
-		var light;
-
-		if (shownFaceIndex && shownFaceIndex != -1) {
-			var f = faces[shownFaceIndex];
-			ight = new THREE.Vector3().add(f.centroid.clone(), f.normal.clone().setLength(100));
-		}
-		else {
-			light = this.camera.position;
-		}
-		var ambient = 0.5;
-		var lightIntensity = 20000;
+		var light = this.camera.position;
+		var ambient = 0.1;
+		var lightIntensity = 10000;
 
 		for (var i = 0; i < faces.length; i++) {
 			var face = faces[i];
 			var centroid = face.centroid;
 			var lightVector = new THREE.Vector3().sub(centroid, light);
 			var faceNormal = face.normal.clone();
+			
 			// calculate angle between face normal and lightvector
 			var angle = Math.acos(lightVector.dot(faceNormal) / (lightVector.length() * faceNormal.length()));
 			var intensity = 1 - Math.cos(angle + Math.PI / 2) * -1;
