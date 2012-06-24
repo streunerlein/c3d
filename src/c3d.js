@@ -1,6 +1,5 @@
 
 var c3d = c3d || {};
-window.c3d = c3d;
 
 c3d.cssVendorPrefix = (function(undefined) {
 	var prefixes = ["Moz", "ms", "O", "Webkit"];
