@@ -1,5 +1,5 @@
-vertex.js
-=========
+c3d
+====
 
 A *.obj to CSS3 converter.
 
