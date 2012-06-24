@@ -1,4 +1,6 @@
 
+var c3d = c3d || {};
+
 c3d.Scene = function(opts) {
 
 	this.animationSpeeds = {
@@ -69,8 +71,6 @@ c3d.Scene = function(opts) {
 	this.htmlEl = this.sceneEl;
 	this.htmlEl.style.cssText += this.cssStyles.scene;
 
-	this.render();
-
 	return this;
 };
 
@@ -106,7 +106,7 @@ c3d.Scene.prototype = {
 	setupCamera: function() {
 		var camera = [];
 
-		camera = new THREE.PerspectiveCamera(35, 1, 1, 10000);
+		camera = new THREE.Camera(35, 1, 1, 10000);
 		camera.position = new THREE.Vector3(this.cameraOrbit.x, this.cameraOrbit.y, this.cameraOrbit.z);
 
 		camera.htmlEl = document.createElement("div");
@@ -127,6 +127,7 @@ c3d.Scene.prototype = {
 		loader.load(path, function(geometry) {
 			that.setGeometry(geometry);
 			afterLoadCallback(that);
+			that.render();
 		}, "");
 
 		return this;
@@ -255,7 +256,7 @@ c3d.Scene.prototype = {
 			var centroid = face.centroid;
 			var lightVector = new THREE.Vector3().sub(centroid, light);
 			var faceNormal = face.normal.clone();
-			
+
 			// calculate angle between face normal and lightvector
 			var angle = Math.acos(lightVector.dot(faceNormal) / (lightVector.length() * faceNormal.length()));
 			var intensity = 1 - Math.cos(angle + Math.PI / 2) * -1;
