@@ -5,10 +5,26 @@ c3d.Scene = function(opts) {
 		camera: 1
 	};
 
-	this.cameraOrbit = new THREE.Vector3(0, 0, 1500);
+	this.cameraOrbit = {
+		x: 0,
+		y: 0,
+		z: 1500
+	};
+
 	this.shading = {
 		flat: false
 	};
+
+	this.namespace = "c3d_";
+
+	this.modelDir = "models/";
+
+	this.perspective = 1000;
+
+	// apply options
+	for (var k in opts) {
+		this[k] = opts[k];
+	}
 
 	this.cssStyles = {
 		scene: [
@@ -32,15 +48,11 @@ c3d.Scene = function(opts) {
 			"left: 50%;"
 		].join("")
 	};
-	this.namespace = "c3d_";
 
 	this.modelName = "";
-	this.modelDir = "models/";
 
 	this.displayWidth = 0;
 	this.displayHeight = 0;
-
-	this.perspective = 1000;
 
 	this.camera = null;
 	this.setupCamera();
@@ -56,10 +68,7 @@ c3d.Scene = function(opts) {
 	this.htmlEl = this.sceneEl;
 	this.htmlEl.style.cssText += this.cssStyles.scene;
 
-	// apply options
-	for (var k in opts) {
-		this[k] = opts[k];
-	}
+	this.render();
 
 	return this;
 };
@@ -84,7 +93,7 @@ c3d.Scene.prototype = {
 	},
 
 	setCameraOrbit: function(x, y, z) {
-		this.cameraOrbit = new THREE.Vector3(x, y, z);
+		this.cameraOrbit = {x: x, y: y, z: z};
 	},
 
 	setDisplaySize: function(width, height) {
@@ -97,7 +106,7 @@ c3d.Scene.prototype = {
 		var camera = [];
 
 		camera = new THREE.PerspectiveCamera(35, 1, 1, 10000);
-		camera.position = this.cameraOrbit;
+		camera.position = new THREE.Vector3(this.cameraOrbit.x, this.cameraOrbit.y, this.cameraOrbit.z);
 
 		camera.htmlEl = document.createElement("div");
 		this.camera = camera;
@@ -217,10 +226,11 @@ c3d.Scene.prototype = {
 		var camera = this.camera;
 		var timeout = 0;
 		var that = this;
+		var cameraOrbit = new THREE.Vector3(this.cameraOrbit.x, this.cameraOrbit.y, this.cameraOrbit.z);
 
-		if (!camera.position.equals(this.cameraOrbit)) {
+		if (!camera.position.equals(cameraOrbit)) {
 			// move to orbit
-			camera.position = this.cameraOrbit;
+			camera.position = cameraOrbit;
 			camera.rotation = new THREE.Vector3();
 			camera.lookAt(new THREE.Vector3(0, 0, 0));
 			this.render();
