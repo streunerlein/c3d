@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Test - Cube</title>
+	<link href="basic.css" type="text/css" rel="stylesheet"/>
+	<script src="../../src/libs/Three.min.js"></script>
+	<script src="../../src/c3d.js"></script>
+	<script src="../../src/c3d.Scene.js"></script>
+</head>
+<body>
+	<script type="text/javascript">
+		var scene = new c3d.Scene({
+			modelDir: "../models/"
+		});
+
+		var model = "cube";
+
+		scene.loadModel(model, function(sceneObj) {
+			// add scene to dom
+			var container = document.getElementsByTagName("body")[0];
+
+			container.appendChild(sceneObj.htmlEl);
+		});
+	</script>
+</body>
+</html>

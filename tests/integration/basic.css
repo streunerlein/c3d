@@ -1,0 +1,15 @@
+body {
+	background-color: #555;
+}
+
+.c3d_scene {
+	background-color: #fff;
+	top: 20%;
+	left: 20%;
+	right: 20%;
+	bottom: 20%;
+}
+
+.c3d_face {
+	background-color: #ccc;
+}
