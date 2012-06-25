@@ -177,7 +177,7 @@ c3d.Scene.prototype = {
 			for (var i = 0; i < matrix.length; i++) {
 				cssMatrix[i] = c3d.toFixed(matrix[i]);
 			}
-			face.style[c3d.cssVendorPrefix + "transform"] = "matrix3d(" + cssMatrix.join(",") + ")";
+			face.style[c3d.jsVendorPrefix + "Transform"] = "matrix3d(" + cssMatrix.join(",") + ")";
 			return face;
 		}
 		
@@ -214,7 +214,7 @@ c3d.Scene.prototype = {
 		}
 
 		// apply to matrix
-		this.camera.htmlEl.style[c3d.cssVendorPrefix + "transform"] = "matrix3d(" + htmlMatrix.join(",") + ")";
+		this.camera.htmlEl.style[c3d.jsVendorPrefix + "Transform"] = "matrix3d(" + htmlMatrix.join(",") + ")";
 
 		// render shadows
 		if (this.shading.flat === true) {

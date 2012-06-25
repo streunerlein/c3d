@@ -3,7 +3,7 @@
 <head>
 	<title>Test - Cube</title>
 	<link href="basic.css" type="text/css" rel="stylesheet"/>
-	<script src="../../thirdparty/Three.js.customized.min.js"></script>
+	<script src="../../build/thirdparty.js"></script>
 	<script src="../../src/c3d.js"></script>
 	<script src="../../src/c3d.Scene.js"></script>
 </head>
@@ -20,6 +20,8 @@
 			var container = document.getElementsByTagName("body")[0];
 
 			container.appendChild(sceneObj.htmlEl);
+
+			scene.render(sceneObj);
 		});
 	</script>
 </body>

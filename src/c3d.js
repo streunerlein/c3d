@@ -12,6 +12,17 @@ c3d.cssVendorPrefix = (function(undefined) {
 	return (i < 0) ? "" : ["-", prefixes[i].toLowerCase(), "-"].join("");
 })();
 
+c3d.jsVendorPrefix = (function(undefined) {
+	var prefixes = ["Moz", "ms", "O", "Webkit"];
+	var testEl = document.createElement('div');
+
+	for (var i = prefixes.length - 1; testEl.style[prefixes[i] + "Transform"] === undefined && i > -1; i--) {
+		continue;
+	}
+
+	return (i < 0) ? "" : prefixes[i];
+})();
+
 c3d.toFixed = function(x) {
 	// converts x from scientific notation to "normal" notation
 	// e.g. function(1.3543e6) -> "1354300"
