@@ -572,6 +572,7 @@ THREE.Vector3.prototype = {
 		this.y = sy;
 		this.z = sz;
 
+		return this;
 	},
 
 	equals: function ( v ) {
@@ -4245,20 +4246,11 @@ c3d.Scene.prototype = {
 			face.index = faceIndex;
 
 			face.htmlEl = drawFace(width, height, this.cssStyles.face, this.namespace);
-			face.htmlEl = setFaceMatrix(face.htmlEl, transformationMatrixArr);
+			face.htmlEl.style[c3d.jsVendorPrefix + "Transform"] = this.getMatrixCss(transformationMatrixArr);
 			face.contentEl = null;
 			face.timeouts = [];
 
 			this.camera.htmlEl.appendChild(face.htmlEl);
-		}
-
-		function setFaceMatrix(face, matrix) {
-			var cssMatrix = new Array(matrix.length);
-			for (var i = 0; i < matrix.length; i++) {
-				cssMatrix[i] = c3d.toFixed(matrix[i]);
-			}
-			face.style[c3d.cssVendorPrefix + "transform"] = "matrix3d(" + cssMatrix.join(",") + ")";
-			return face;
 		}
 		
 		function drawFace(width, height, styles, namespace) {
@@ -4272,6 +4264,37 @@ c3d.Scene.prototype = {
 			return container;
 		}
 		return this;
+	},
+
+	getMatrixCss: function(matrix) {
+		var cssString = "";
+		if (c3d.jsVendorPrefix == "Moz") {
+			var m = matrix;
+			var tMatrix = new THREE.Matrix4(
+				m[0],	m[1],	m[2],	m[3],
+				m[4],	m[5],	m[6],	m[7],
+				m[8],	m[9],	m[10],	m[11],
+				m[12],	m[13],	m[14],	m[15]
+			);
+			var trans = new THREE.Vector3().getPositionFromMatrix(tMatrix);
+			var scale = new THREE.Vector3().getScaleFromMatrix(tMatrix);
+			var rot = new THREE.Vector3().getRotationFromMatrix(tMatrix);
+			console.log(scale)
+			cssString = [
+				"rotate(",		rot.x, "deg ",	rot.y, "deg ",	rot.z, "deg",	")",
+				"scale(",		scale.x,		scale.y,		scale.z,		")",
+				"translate(",	trans.x,		trans.y,		trans.z,		")"
+			].join(" ");
+		}
+		else {
+			var cssMatrix = new Array(matrix.length);
+			for (var i = 0; i < matrix.length; i++) {
+				cssMatrix[i] = c3d.toFixed(matrix[i]);
+			}
+			cssString = ["matrix3d(", cssMatrix.join(","), ")"].join("");
+		}
+
+		return cssString;
 	},
 
 	render: function() {
@@ -4294,7 +4317,7 @@ c3d.Scene.prototype = {
 		}
 
 		// apply to matrix
-		this.camera.htmlEl.style[c3d.cssVendorPrefix + "transform"] = "matrix3d(" + htmlMatrix.join(",") + ")";
+		this.camera.htmlEl.style[c3d.jsVendorPrefix + "Transform"] = "matrix3d(" + htmlMatrix.join(",") + ")";
 
 		// render shadows
 		if (this.shading.flat === true) {
@@ -4365,6 +4388,17 @@ c3d.cssVendorPrefix = (function(undefined) {
 	}
 
 	return (i < 0) ? "" : ["-", prefixes[i].toLowerCase(), "-"].join("");
+})();
+
+c3d.jsVendorPrefix = (function(undefined) {
+	var prefixes = ["Moz", "ms", "O", "Webkit"];
+	var testEl = document.createElement('div');
+
+	for (var i = prefixes.length - 1; testEl.style[prefixes[i] + "Transform"] === undefined && i > -1; i--) {
+		continue;
+	}
+
+	return (i < 0) ? "" : prefixes[i];
 })();
 
 c3d.toFixed = function(x) {
