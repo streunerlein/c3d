@@ -28,14 +28,14 @@ Here are some things that already work:
  * Display arbitrary HTML on every face
  * Have flat shading (basic lightning) for your object
  * Camera movements are smoothly animated
- * Pretty good performance
+ * Pretty good performance 
 
 These things are coming soon, I already did them successfully but did not include into the library yet:
 
  * "Soft" point light, with gradients and a single specular
  * Move camera to a defined face automatically
-   * This is a convencience feature, but as this lib is for websites it think an important one
- * Have beautifully rendered shadows and lightning on the faces as you see it in your 3D program
+   * This is a convencience feature, but as this lib is for websites, I think it's an important one
+ * Beautifully rendered shadows and lightning on the faces as you see it in your 3D program
  * Ambient Occlusion
  * Rotate/Move 3D objects individually (not only the camera)
 
