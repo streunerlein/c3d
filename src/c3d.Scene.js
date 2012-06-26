@@ -30,7 +30,7 @@ c3d.Scene = function(opts) {
 
 	this.cssStyles = {
 		scene: [
-			[c3d.cssVendorPrefix, "perspective: ", this.perspective, ";"].join(""),
+			[c3d.cssVendorPrefix, "perspective: ", this.perspective, "px;"].join(""),
 			[c3d.cssVendorPrefix, "transform-style: preserve-3d;"].join(""),
 			"position: absolute;",
 			"background-color: transparent;"
