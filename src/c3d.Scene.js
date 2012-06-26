@@ -156,7 +156,7 @@ c3d.Scene.prototype = {
 			var transformationMatrixArr = [
 				xAxis.x,	xAxis.y,	xAxis.z,	0,
 				yAxis.x,	yAxis.y,	yAxis.z,	0,
-				0,			0,			1,			0,
+				1,			1,			1,			0,
 				centroid.x, centroid.y, centroid.z, 1
 			];
 	
@@ -187,33 +187,12 @@ c3d.Scene.prototype = {
 
 	getMatrixCss: function(matrix) {
 		var cssString = "";
-		if (c3d.jsVendorPrefix == "Moz") {
-			var m = matrix;
-			var tMatrix = new THREE.Matrix4(
-				m[0],	m[1],	m[2],	m[3],
-				m[4],	m[5],	m[6],	m[7],
-				m[8],	m[9],	m[10],	m[11],
-				m[12],	m[13],	m[14],	m[15]
-			);
-
-			rot = {
-				x: Math.acos(m[5]),
-				y: Math.acos(m[0]),
-				z: Math.sin(m[1])
-			};
-			
-			cssString = [
-				"translate3d(",	m[12], "px,",	m[13], "px,",	m[14],			"px) ",
-				"rotateX(", rot.x, "rad) rotateY(", rot.y, "rad) rotateZ(", rot.z, "rad)"
-			].join("");
+		
+		var cssMatrix = new Array(matrix.length);
+		for (var i = 0; i < matrix.length; i++) {
+			cssMatrix[i] = c3d.toFixed(matrix[i]);
 		}
-		else {
-			var cssMatrix = new Array(matrix.length);
-			for (var i = 0; i < matrix.length; i++) {
-				cssMatrix[i] = c3d.toFixed(matrix[i]);
-			}
-			cssString = ["matrix3d(", cssMatrix.join(","), ")"].join("");
-		}
+		cssString = ["matrix3d(", cssMatrix.join(","), ")"].join("");
 
 		return cssString;
 	},
