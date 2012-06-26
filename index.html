@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="C3d : A *.obj to CSS3 converter" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>C3d</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/streunerlein/c3d">View on GitHub</a>
+
+          <h1 id="project_title">C3d</h1>
+          <h2 id="project_tagline">A *.obj to CSS3 converter</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/streunerlein/c3d/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/streunerlein/c3d/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>c3d</h1>
+
+<p>A *.obj to CSS3 converter.</p>
+
+<h2>What does it do?</h2>
+
+<p>c3d can read object files (.obj) made by 3D programs (Cinema4D, 3dMax, Blender, ...) and display them in HTML/CSS3.</p>
+
+<h2>How?</h2>
+
+<p>The model properties in the object files are translated to CSS3 transforms. For every face on the 3D model, there's a corresponding HTML-element which can be used as every other HTML element in your DOM: put more HTML on it, define event handlers (onclick, onmouseover, ...)!</p>
+
+<p>Once the model is loaded, you'll get access to a camera element, which allows you to rotate around the model, zoom in, zoom out, pan, etc.</p>
+
+<h2>So... Is it THAT cool?</h2>
+
+<p>Yes, but... there are some limitations.</p>
+
+<p>As CSS3 is not fully capable of every 3D goodie your 3D program might have, not everything can be displayed in the HTML representation.</p>
+
+<p>Here are some things that already work:</p>
+
+<ul>
+<li>Import models with an arbitrary number of faces</li>
+<li>Display arbitrary HTML on every face</li>
+<li>Have flat shading (basic lightning) for your object</li>
+<li>Camera movements are smoothly animated</li>
+<li>Pretty good performance </li>
+</ul><p>These things are coming soon, I already did them successfully but did not include into the library yet:</p>
+
+<ul>
+<li>"Soft" point light, with gradients and a single specular</li>
+<li>Move camera to a defined face automatically
+
+<ul>
+<li>This is a convencience feature, but as this lib is for websites, I think it's an important one</li>
+</ul>
+</li>
+<li>Beautifully rendered shadows and lightning on the faces as you see it in your 3D program</li>
+<li>Ambient Occlusion</li>
+<li>Rotate/Move 3D objects individually (not only the camera)</li>
+</ul><p>Things I didn't do yet and will be mid-term limitations of this library:</p>
+
+<ul>
+<li>Faces with 3 or more than 4 vertices
+
+<ul>
+<li>make sure the faces in your model have exactly 4 vertices</li>
+<li>Additionally, faces need to be parallelograms</li>
+<li>Practically, this means that you shouldn't change the vertices of your rectangular faces individually unless you know what you do</li>
+<li>This is mainly a limitation of HTML/CSS itself, as HTML elements are rectangular (no triangles)
+
+<ul>
+<li>There are ways to work around this and I will certainly try to do that.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul><p>Things that may be never possible:</p>
+
+<ul>
+<li>"Perfect" shading as seen in the 3D programs</li>
+<li>3D program render settings like Stereocams, Motion blur, Depth of field, ...</li>
+</ul><h2>How to use it?</h2>
+
+<p>I will publish tutorials and the expected workflow here.</p>
+
+<p>That's it for now! Stay tuned, watch the repo.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">C3d maintained by <a href="https://github.com/streunerlein">streunerlein</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-32943948-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+
+  </body>
+</html>
